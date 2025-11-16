@@ -111,10 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const formStatus = document.getElementById('form-status');
     const submitBtn = document.getElementById('submit-btn');
     
-    // Backend API endpoint - change this to your deployed backend URL
+    // Backend API endpoint
     // For local development: 'http://localhost:3000'
-    // For production: 'https://your-backend-url.com'
-    const API_URL = 'http://localhost:3000';
+    // For Vercel production: '/api' (relative path works automatically)
+    const API_URL = window.location.hostname === 'localhost' 
+        ? 'http://localhost:3000' 
+        : '/api';
     
     if (contactForm) {
         const handleSubmit = async (e) => {
@@ -146,7 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 // Send form data to backend
-                const response = await fetch(`${API_URL}/send-email`, {
+                const endpoint = API_URL === '/api' ? '/api/send-email' : `${API_URL}/send-email`;
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
