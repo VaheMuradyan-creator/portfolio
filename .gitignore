@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# DKIM Keys (NEVER commit these!)
+dkim_private.key
+dkim_public.key
+*.key
+
